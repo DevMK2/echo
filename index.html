@@ -19,6 +19,7 @@
         <button id="connect-btn" class="button is-success hidden" style="font-weight: 600;">
           Connect to MIC
         </button>
+        <div id="error"></div>
       </div>
     </div>
   </section>
@@ -55,6 +56,7 @@
       .then(handleSuccess)
       .catch(e=>{
         connectBtn.classList.remove('hidden');
+        document.querySelector('#error').textContent = e;
       });
     }
 
