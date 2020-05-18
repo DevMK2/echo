@@ -41,10 +41,12 @@
       processor.connect(context.destination);
 
       processor.onaudioprocess = e=>{
+        document.querySelector('#error').textContent = 'no channel';
         for(let chan=0; chan<e.outputBuffer.numberOfChannels; ++chan) {
           let inputData = e.inputBuffer.getChannelData(chan);
           let outputData = e.outputBuffer.getChannelData(chan);
 
+          document.querySelector('#error').textContent = 'no sample';
           for(let sample=0; sample<e.inputBuffer.length; ++sample) {
             outputData[sample] = inputData[sample];
             document.querySelector('#error').textContent = outputData[sample];
