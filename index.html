@@ -34,8 +34,9 @@
     let handleSuccess = stream=>{
       document.querySelector('#error').textContent = 'fuck ...';
       connectBtn.classList.add('hidden');
-      document.querySelector('#error').textContent = context;
+      document.querySelector('#error').textContent = AudioContext;
       let context = new AudioContext;
+      document.querySelector('#error').textContent = context;
       let input = context.createMediaStreamSource(stream);
       let processor = context.createScriptProcessor(1024, 1, 1);
 
