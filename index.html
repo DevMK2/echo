@@ -16,12 +16,18 @@
         <h2 class="subtitle">
           mkro0616@gmail.com
         </h2>
+        <button id="connect-btn" class="button is-success hidden" style="font-weight: 600;">
+          Connect to MIC
+        </button>
       </div>
     </div>
   </section>
 
   <script>
+    let connectBtn = document.querySelector('#connect-btn');
+
     let handleSuccess = stream=>{
+      connectBtn.classList.add('hidden');
       let context = new AudioContext();
       let input = context.createMediaStreamSource(stream);
       let processor = context.createScriptProcessor(1024, 1, 1);
@@ -41,10 +47,20 @@
       };
     };
 
-    navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: false
-    }).then(handleSuccess);
+    let connectToMIC = ()=>{
+      navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: false
+      })
+      .then(handleSuccess)
+      .catch(e=>{
+        connectBtn.classList.remove('hidden');
+      });
+    }
+
+    connectBtn.addEventListener('mouseup', connectToMIC);
+    connectBtn.addEventListener('touchend', connectToMIC);
+    connectToMIC();
 
   </script>
 </body>

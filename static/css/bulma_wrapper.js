@@ -1,2 +1,0 @@
-$footer-background-color
-$footer-background-color
