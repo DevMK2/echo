@@ -39,18 +39,18 @@
 
       input.connect(processor);
       processor.connect(context.destination);
-      document.querySelector('#error').textContent = processor;
 
+      document.querySelector('#error').textContent = processor.onaudioprocess;
       processor.onaudioprocess = e=>{
-        document.querySelector('#error').textContent = 'no channel';
+        document.querySelector('#error').textContent = 'just act audio process';
         for(let chan=0; chan<e.outputBuffer.numberOfChannels; ++chan) {
+          document.querySelector('#error').textContent = 'just have chan';
           let inputData = e.inputBuffer.getChannelData(chan);
           let outputData = e.outputBuffer.getChannelData(chan);
 
-          document.querySelector('#error').textContent = 'no sample';
           for(let sample=0; sample<e.inputBuffer.length; ++sample) {
+            document.querySelector('#error').textContent = 'just have sample';
             outputData[sample] = inputData[sample];
-            document.querySelector('#error').textContent = outputData[sample];
           }
         }
       };
