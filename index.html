@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Don't record just echo</title>
+  <link rel="stylesheet" type='text/css' href="./static/css/mybulma.css">
+</head>
+<body>
+  <section class="hero is-fullheight is-link">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title is-spaced">
+          Don't record just echo
+        </h1>
+        <h2 class="subtitle">
+          mkro0616@gmail.com
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    let handleSuccess = stream=>{
+      let context = new AudioContext();
+      let input = context.createMediaStreamSource(stream);
+      let processor = context.createScriptProcessor(1024, 1, 1);
+
+      input.connect(processor);
+      processor.connect(context.destination);
+
+      processor.onaudioprocess = e=>{
+        for(let chan=0; chan<e.outputBuffer.numberOfChannels; ++chan) {
+          let inputData = e.inputBuffer.getChannelData(chan);
+          let outputData = e.outputBuffer.getChannelData(chan);
+
+          for(let sample=0; sample<e.inputBuffer.length; ++sample) {
+            outputData[sample] = inputData[sample];
+          }
+        }
+      };
+    };
+
+    navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: false
+    }).then(handleSuccess);
+
+  </script>
+</body>
+</html>
