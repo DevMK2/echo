@@ -37,6 +37,8 @@
       let input = context.createMediaStreamSource(stream);
       let processor = context.createScriptProcessor(1024, 1, 1);
 
+      document.querySelector('#error').textContent = 'no input or processor?';
+
       input.connect(processor);
       processor.connect(context.destination);
 
