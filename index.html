@@ -25,11 +25,15 @@
   </section>
 
   <script>
+    let AudioContext = window.AudioContext || window.webkitAudioContext || false;
+    if(!AudioContext)
+      alert("Sorry, but the Web Audio API is not supported by your browser");
+
     let connectBtn = document.querySelector('#connect-btn');
 
     let handleSuccess = stream=>{
       connectBtn.classList.add('hidden');
-      let context = new(AudioContext || window.webkitAudioContext);
+      let context = new AudioContext;
       let input = context.createMediaStreamSource(stream);
       let processor = context.createScriptProcessor(1024, 1, 1);
 
