@@ -39,6 +39,7 @@
 
       input.connect(processor);
       processor.connect(context.destination);
+      document.querySelector('#error').textContent = processor;
 
       processor.onaudioprocess = e=>{
         document.querySelector('#error').textContent = 'no channel';
