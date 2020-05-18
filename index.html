@@ -47,6 +47,7 @@
 
           for(let sample=0; sample<e.inputBuffer.length; ++sample) {
             outputData[sample] = inputData[sample];
+            document.querySelector('#error').textContent = outputData[sample];
           }
         }
       };
